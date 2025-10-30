@@ -42,7 +42,7 @@ public class ClientService {
     }
 
     public List<ClientResponseDto> findByNome(String nome) {
-        List<Client> clients = clientRepository.findByNomeContainingIgnoreCase(nome);
+        List<Client> clients = clientRepository.findBynameContainingIgnoreCase(nome);
 
             return clients.stream()
                     .map(clientMapper::toDto)
@@ -55,6 +55,13 @@ public class ClientService {
         return clientMapper.toDto(saveClient);
     }
 
+    public void deletarUser(long id) {
+        if(!clientRepository.existsById(id)) {
+            throw new RecursoNaoEncontradoException("client com o ID " + id + " não encontrado");
+        }
+        clientRepository.deleteById(id);
+    }
+
     public ClientResponseDto update(ClientRequestDto clientdto, Long id) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Client  com ID" + id + "não encontrado"));
@@ -65,8 +72,6 @@ public class ClientService {
 
         Client clientUpdate = clientRepository.save(client);
         return clientMapper.toDto(clientUpdate);
-
-
 
     }
 
