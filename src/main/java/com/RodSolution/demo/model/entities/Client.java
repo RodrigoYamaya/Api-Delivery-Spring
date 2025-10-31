@@ -1,9 +1,12 @@
 package com.RodSolution.demo.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name= "tb_client")
@@ -29,6 +32,8 @@ public class Client {
 
     @Column(name = "created_at",nullable = false,updatable = false)
     private Instant createdAt;
+
+
 
 
 }
